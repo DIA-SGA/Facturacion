@@ -103,7 +103,7 @@
   facturas.fin.int<-facturas.fin.int.iv[,c(-16,-17)]
   
   #d)sin ordenes de compra
-  facturas.sin.oc<- read_excel("../FacturasEnTramite/bases/Presentación_de_facturas_no_amparadas_por_proceso_crosstab.xlsx")
+  facturas.sin.oc<- read_excel("bases/Presentación_de_facturas_no_amparadas_por_proceso_crosstab.xlsx")
   facturas.sin.oc$sist.origen <- "Legitimo abono" 
   #facturas.sin.oc <- read_excel("2021-05-14 Facturas recibidas en tramite.xlsx", sheet = "sinOC")
   #sin.oc ahora tiene importe y moneda, se agrego pero el campo no esta estructurado
@@ -541,7 +541,7 @@ facturas.fin.int<- read_excel("bases/Presentación_de_Facturas_Adquisiciones_con
   distinct() 
 
 ## traigo facturas legítimo abono
-facturas.sin.oc<- read_excel("../FacturasEnTramite/bases/Presentación_de_facturas_no_amparadas_por_proceso_crosstab.xlsx") %>% 
+facturas.sin.oc<- read_excel("bases/Presentación_de_facturas_no_amparadas_por_proceso_crosstab.xlsx") %>% 
   select(2,11,12) %>% 
   rename(`expediente`=`Número de expediente`) %>%
   distinct()
