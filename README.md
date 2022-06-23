@@ -1,5 +1,5 @@
-# Tablero-Adquisiciones
-Seguimiento de expedientes que tramitan adquisiciones
+# Tablero-Expediente de pago a proveedpores
+Seguimiento de expedientes que tramitan facturas
 
 # Solicitudes de contratación tiene tres tablas asociadas:
 
