@@ -21,20 +21,10 @@ El tablero de Expedientes de pago a proveedores se construye con cuatro informes
 4. Detalle de expedientes GDE – Expedientes electrónicos
 5. Documentos asociados a expedientes
 
+Los informes **Comprobantes para autogestión de proveedores**, **Presentación de facturas Adquisiciones con Financiamiento Internacional** y **Presentación de facturas no amparadas por proceso de compra** se encuentran dentro de la carpeta Formularios Controlados. Para acceder a dicha carpeta, ingresar al [tableau](https://reportes.gob.ar) con usuario y contraseña y dentro del menú Explorar, seleccionar la carpeta Formularios Controlados, tal como se muestra en la Ilustración 1.
 
-**Hasta acá levantamos 4 tablas que salen de comprar que interopera con GDE porque ambos sistemas están vinculados**
+**Ilustración 1: Menú explorar**
 
-## Bajamos los expedientes que no tramitan por el sistema COMPRAR sino por finaciamiento externo *etapa pre comprar*
-
-En [tableau](https://reportes.gob.ar) **tramitaciones y registros** > **GDE expedientes electrónicos** > **Detalles de expedientes** > ir a vista original y seleccionar *detallesSCOyTRAM_EEy COMPRAR* de esta tabla sale fecha de último pase usuario actual repartición actual y fecha de caratulación, son 
-datos muy relevantes de un expediente sobre los tiempos de movimiento (donde está, cuánto hace que no se mueve).
-
-En [tableau](https://reportes.gob.ar) **tramitaciones y registro** > *GDE Documentos asociados a expedientes*, *este que no tiene año y tiene estrellita es 2021*
-y *GDE Documentos asociados a expedientes 2020* es otro que hay que bajar, que también tiene estrellita. Cada uno de estos dos reportes tiene
-dos tablas asociadas, solo hay que bajar una de ellas. En el caso de *GDE Documentos asociados a expedientes 2020* Ir a vista original y bajar 
-*Acronimos 2020´*, que es el único reporte que tiene guardado....y me va a llevar a dos tablas de las cuáles solo tengo que bajar una sola, la que está
-abajo. Hay que pinchar sobre el encabezado de la tabla de abajo y bajarla...cuándo se descarga hay que agregarle el año porque no lo tiene. Esto hay que repetirlo para
-*GDE Documentos asociados 2021* y *GDE Documentos asociados 2022*.
 
 ## FORMULARIO FOWMC ##
 
