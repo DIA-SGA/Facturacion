@@ -21,13 +21,8 @@ El tablero de Expedientes de pago a proveedores se construye con cuatro informes
 4. Detalle de expedientes GDE – Expedientes electrónicos
 5. Documentos asociados a expedientes
 
-Los informes **Comprobantes para autogestión de proveedores**, **Presentación de facturas Adquisiciones con Financiamiento Internacional** y **Presentación de facturas no amparadas por proceso de compra** se encuentran dentro de la carpeta Formularios Controlados. Para acceder a dicha carpeta, ingresar al [tableau](https://reportes.gob.ar) con usuario y contraseña y dentro del menú Explorar, seleccionar la carpeta Formularios Controlados, tal como se muestra en la Ilustración 1.
+Los informes **Comprobantes para autogestión de proveedores**, **Presentación de facturas Adquisiciones con Financiamiento Internacional** y **Presentación de facturas no amparadas por proceso de compra** se encuentran dentro de la carpeta Formularios Controlados. Para acceder a dicha carpeta, ingresar al [tableau](https://reportes.gob.ar) con usuario y contraseña y dentro del menú Explorar, seleccionar la carpeta Formularios Controlados, tal como se muestra en la **Ilustración 1**.
 
 
 **Ilustración 1 - Menú explorar**
 [![Esta es una imagen de ejemplo](imagen1_funcional.jpg)](imagen1_funcional.jpg)
-
-
-## FORMULARIO FOWMC ##
-
-En [tableau](https://reportes.gob.ar) en **Formularuos controlados** > *Monitoreo del plan anual de compras -SGA#MS*, y desfiltrar todo Expedientes con las documentaciones asociadas a cada uno de ellos, el campo que tenemos que tomar es *Número de expediente*, hay otro que se llama *Expediente donde se encuentra vinculado el formulario FOWMC*, que se va a quitar.
