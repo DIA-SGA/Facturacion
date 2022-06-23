@@ -1,27 +1,30 @@
-# Tablero-Adquisiciones
-Seguimiento de expedientes que tramitan adquisiciones
+# Tablero-Expediente de pago a proveedpores
+Seguimiento de expedientes que tramitan facturas
 
-# Solicitudes de contratación tiene tres tablas asociadas:
+# Objetivos y alcances:
 
-En [tableau](https://reportes.gob.ar) **compras y contrataciones** > **comprar-informacion general** > entrar **detalles solicitudes de contratación** > bajar las tres tablas que están **detalles de solicitudes de contratación** que se generan desde la platafora de comprar para dar comienzo a una slicitud de contratación, un bien a requerir, que puede o no estar asociada a un proceso de adquisción. Esta tabla tiene la información de un paso previo. Todas las variables vienen de la plataforma electrónica comprar. *Unidad solicitante* es texto libre por lo cual no lo usamos. Monto si nos interesa y la fecha creación y fecha autorización. En la tabla **información prespuestaria** se consolida la información de cada solicitud de contratación, que se repite tantas imputaciones de ejercicio tenga (más de un año). En la tabla **Expedientes asociados** tenemos el número de expediente por el cuál se está actuando sobre las solicitudes de contratación...en esta tabla se guarda la relación del expediente caratulado como SGA en un principio y luego cuándo llega a comprar se lo caratula con la sigla DCYC.
+En el armado de este tablero participó la Dirección de Innovación Administrativa a través de la obtención de distintos formularios controlados obtenidos del GDE y de la recaudación de los trámites a distancia (TAD) para el pago de facturas de proveedores del Ministerio de Salud. 
+Las áreas involucradas y destinatarias son aquellas con el interés de visualizar los expedientes abiertos de pago a proveedores. La aprobación de este tablero fue llevada a cabo por la Secretaría de Gestión Administrativo con el fin de visibilizar y trasparentar tanto los tiempos y la cantidad de expedientes, como así también el monto total de las facturas a devengar. Esto permite tener información clara para las distintas áreas del ministerio como para el análisis de comparación con otros ministerios. 
 
-# Detalles porcesos de compra 
+El tablero tiene como objetivo revelar ciertos indicadores importantes y que funcione como repositorio de información sobre los expedientes que se inician por TAD para el pago a proveedores. Para tal fin se hace una actualización semanal, que será estipulado un día fijo. No están incluidos en este tablero aquellos expedientes que ya fueron devengados y cerrados. 
 
-En [tableau](https://reportes.gob.ar) **detalles procesos de compra**  hay una sola tabla donde tenemos los estados de los procesos de compra, vincular la solicitud de contratacion y elaboración de pliego, luego está la publicación del pliego. Los estados de los procesos son *inicial*, *publicacion*, *llamado/publicación*, *apertura*, *evaluación de ofertas*, *preadjudicación* y *adjudicación*, esta última es cuando  está el contrato firmado. No miramos los procesos en estado *sin efecto*, *desierto*, *fracasada*, que es cuando alguien se presentó pero el comité de evaluación no aprobó por alguna razón.
+El tablero visualiza indicadores que refieren el importe según la ubicación de los expedientes; el importe según el sistema de origen de pago; el estado de los expedientes; la cantidad de expedientes por estado; los proveedores con mayor importe de facturas.
+Además, permite el alcance a una tabla que resume según la repartición donde se ubica el expediente, la cantidad de facturas que tiene esa área, el promedio de días del último pase y el monto total de las facturas. 
+Por último, le sigue una pestaña en el que está el listado completo de expedientes abiertos que tramitan el pago de facturas a proveedores.
 
-**Hasta acá levantamos 4 tablas que salen de comprar que interopera con GDE porque ambos sistemas están vinculados**
+# Descripción de informes fuente
 
-## Bajamos los expedientes que no tramitan por el sistema COMPRAR sino por finaciamiento externo *etapa pre comprar*
+El tablero de Expedientes de pago a proveedores se construye con cuatro informes de Tableau:
+1. Comprobantes para autogestión de proveedores
+2. Presentación de facturas Adquisiciones con Financiamiento Internacional
+3. Presentación de facturas no amparadas por proceso de compra
+4. Detalle de expedientes GDE – Expedientes electrónicos
+5. Documentos asociados a expedientes
 
-En [tableau](https://reportes.gob.ar) **tramitaciones y registros** > **GDE expedientes electrónicos** > **Detalles de expedientes** > ir a vista original y seleccionar *detallesSCOyTRAM_EEy COMPRAR* de esta tabla sale fecha de último pase usuario actual repartición actual y fecha de caratulación, son 
-datos muy relevantes de un expediente sobre los tiempos de movimiento (donde está, cuánto hace que no se mueve).
+Los informes **Comprobantes para autogestión de proveedores**, **Presentación de facturas Adquisiciones con Financiamiento Internacional** y **Presentación de facturas no amparadas por proceso de compra** se encuentran dentro de la carpeta Formularios Controlados. Para acceder a dicha carpeta, ingresar al [tableau](https://reportes.gob.ar) con usuario y contraseña y dentro del menú Explorar, seleccionar la carpeta Formularios Controlados, tal como se muestra en la Ilustración 1.
 
-En [tableau](https://reportes.gob.ar) **tramitaciones y registro** > *GDE Documentos asociados a expedientes*, *este que no tiene año y tiene estrellita es 2021*
-y *GDE Documentos asociados a expedientes 2020* es otro que hay que bajar, que también tiene estrellita. Cada uno de estos dos reportes tiene
-dos tablas asociadas, solo hay que bajar una de ellas. En el caso de *GDE Documentos asociados a expedientes 2020* Ir a vista original y bajar 
-*Acronimos 2020´*, que es el único reporte que tiene guardado....y me va a llevar a dos tablas de las cuáles solo tengo que bajar una sola, la que está
-abajo. Hay que pinchar sobre el encabezado de la tabla de abajo y bajarla...cuándo se descarga hay que agregarle el año porque no lo tiene. Esto hay que repetirlo para
-*GDE Documentos asociados 2021* y *GDE Documentos asociados 2022*.
+**Ilustración 1: Menú explorar**
+
 
 ## FORMULARIO FOWMC ##
 
