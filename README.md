@@ -12,9 +12,15 @@ El tablero visualiza indicadores que refieren el importe según la ubicación de
 Además, permite el alcance a una tabla que resume según la repartición donde se ubica el expediente, la cantidad de facturas que tiene esa área, el promedio de días del último pase y el monto total de las facturas. 
 Por último, le sigue una pestaña en el que está el listado completo de expedientes abiertos que tramitan el pago de facturas a proveedores.
 
-## Descripción de informes fuente
+# Descripción de informes fuente
 
-En [tableau](https://reportes.gob.ar) **detalles procesos de compra**  hay una sola tabla donde tenemos los estados de los procesos de compra, vincular la solicitud de contratacion y elaboración de pliego, luego está la publicación del pliego. Los estados de los procesos son *inicial*, *publicacion*, *llamado/publicación*, *apertura*, *evaluación de ofertas*, *preadjudicación* y *adjudicación*, esta última es cuando  está el contrato firmado. No miramos los procesos en estado *sin efecto*, *desierto*, *fracasada*, que es cuando alguien se presentó pero el comité de evaluación no aprobó por alguna razón.
+El tablero de Expedientes de pago a proveedores se construye con cuatro informes de Tableau:
+1 “Comprobantes para autogestión de proveedores”
+2 “Presentación de facturas Adquisiciones con Financiamiento Internacional”
+3 “Presentación de facturas no amparadas por proceso de compra”
+4 “Detalle de expedientes GDE – Expedientes electrónicos”
+5 “Documentos asociados a expedientes”
+
 
 **Hasta acá levantamos 4 tablas que salen de comprar que interopera con GDE porque ambos sistemas están vinculados**
 
