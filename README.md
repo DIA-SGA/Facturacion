@@ -15,11 +15,11 @@ Por último, le sigue una pestaña en el que está el listado completo de expedi
 # Descripción de informes fuente
 
 El tablero de Expedientes de pago a proveedores se construye con cuatro informes de Tableau:
-1 “Comprobantes para autogestión de proveedores”
-2 “Presentación de facturas Adquisiciones con Financiamiento Internacional”
-3 “Presentación de facturas no amparadas por proceso de compra”
-4 “Detalle de expedientes GDE – Expedientes electrónicos”
-5 “Documentos asociados a expedientes”
+1. Comprobantes para autogestión de proveedores
+2. Presentación de facturas Adquisiciones con Financiamiento Internacional
+3. Presentación de facturas no amparadas por proceso de compra
+4. Detalle de expedientes GDE – Expedientes electrónicos
+5. Documentos asociados a expedientes
 
 
 **Hasta acá levantamos 4 tablas que salen de comprar que interopera con GDE porque ambos sistemas están vinculados**
