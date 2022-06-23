@@ -1,11 +1,18 @@
 # Tablero-Expediente de pago a proveedpores
 Seguimiento de expedientes que tramitan facturas
 
-# Solicitudes de contratación tiene tres tablas asociadas:
+# Objetivos y alcances:
 
-En [tableau](https://reportes.gob.ar) **compras y contrataciones** > **comprar-informacion general** > entrar **detalles solicitudes de contratación** > bajar las tres tablas que están **detalles de solicitudes de contratación** que se generan desde la platafora de comprar para dar comienzo a una slicitud de contratación, un bien a requerir, que puede o no estar asociada a un proceso de adquisción. Esta tabla tiene la información de un paso previo. Todas las variables vienen de la plataforma electrónica comprar. *Unidad solicitante* es texto libre por lo cual no lo usamos. Monto si nos interesa y la fecha creación y fecha autorización. En la tabla **información prespuestaria** se consolida la información de cada solicitud de contratación, que se repite tantas imputaciones de ejercicio tenga (más de un año). En la tabla **Expedientes asociados** tenemos el número de expediente por el cuál se está actuando sobre las solicitudes de contratación...en esta tabla se guarda la relación del expediente caratulado como SGA en un principio y luego cuándo llega a comprar se lo caratula con la sigla DCYC.
+En el armado de este tablero participó la Dirección de Innovación Administrativa a través de la obtención de distintos formularios controlados obtenidos del GDE y de la recaudación de los trámites a distancia (TAD) para el pago de facturas de proveedores del Ministerio de Salud. 
+Las áreas involucradas y destinatarias son aquellas con el interés de visualizar los expedientes abiertos de pago a proveedores. La aprobación de este tablero fue llevada a cabo por la Secretaría de Gestión Administrativo con el fin de visibilizar y trasparentar tanto los tiempos y la cantidad de expedientes, como así también el monto total de las facturas a devengar. Esto permite tener información clara para las distintas áreas del ministerio como para el análisis de comparación con otros ministerios. 
 
-# Detalles porcesos de compra 
+El tablero tiene como objetivo revelar ciertos indicadores importantes y que funcione como repositorio de información sobre los expedientes que se inician por TAD para el pago a proveedores. Para tal fin se hace una actualización semanal, que será estipulado un día fijo. No están incluidos en este tablero aquellos expedientes que ya fueron devengados y cerrados. 
+
+El tablero visualiza indicadores que refieren el importe según la ubicación de los expedientes; el importe según el sistema de origen de pago; el estado de los expedientes; la cantidad de expedientes por estado; los proveedores con mayor importe de facturas.
+Además, permite el alcance a una tabla que resume según la repartición donde se ubica el expediente, la cantidad de facturas que tiene esa área, el promedio de días del último pase y el monto total de las facturas. 
+Por último, le sigue una pestaña en el que está el listado completo de expedientes abiertos que tramitan el pago de facturas a proveedores.
+
+## Descripción de informes fuente
 
 En [tableau](https://reportes.gob.ar) **detalles procesos de compra**  hay una sola tabla donde tenemos los estados de los procesos de compra, vincular la solicitud de contratacion y elaboración de pliego, luego está la publicación del pliego. Los estados de los procesos son *inicial*, *publicacion*, *llamado/publicación*, *apertura*, *evaluación de ofertas*, *preadjudicación* y *adjudicación*, esta última es cuando  está el contrato firmado. No miramos los procesos en estado *sin efecto*, *desierto*, *fracasada*, que es cuando alguien se presentó pero el comité de evaluación no aprobó por alguna razón.
 
