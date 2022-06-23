@@ -1,0 +1,302 @@
+---
+title: "**Expedientes con pagos a proveedores**"
+output: 
+  flexdashboard::flex_dashboard:
+        orientation: rows
+        theme: lumen
+        vertical_layout: scroll
+        favicon: logo_sga_azul40pctn.png
+        logo: logoMSAL35pctn.png
+---
+
+
+```{r echo=F, warning=FALSE, message=FALSE}
+#1-importo las tablas
+library(R.utils)
+#tabla.sabana<-loadObject("C:/Users/JRamirez/Documents/TRABAJO/aaaSUBSE/FacturasEnTramite/tablas/tabla.sabana.Rbin")
+tabla.sabana<-loadObject("../tablas/tabla.sabana.Rbin")
+#tabla.resumen<-loadObject("C:/Users/JRamirez/Documents/TRABAJO/aaaSUBSE/FacturasEnTramite/tablas/tabla.resumen.Rbin")
+tabla.resumen<-loadObject("../tablas/tabla.resumen.Rbin")
+```
+
+Comentarios {.sidebar} 
+=====================================   
+
+####Incluye
+Expedientes con estado abierto que hayan ingresado por TAD, para todas las modalidades de compra y todas las fuentes de financiamiento.
+
+####Excluye
+Expedientes con facturas que ya se hayan devengado.
+
+####Información en cada hoja del tablero
+
+**1)Indicadores en hoja resumen**
+
+-Importe total en ARS (los importes en moneda extranjera se convierten utilizando el tipo de cambio nación vendedor vigente al día de la fecha del reporte).
+
+-Cantidad de expedientes: total de expedientes en tramitación
+
+-Promedio días desde último pase: mediana de los días transcurridos entre el último movimiento y la fecha del informe. 
+
+-Promedio días desde la caratulación: mediana de los días transcurridos entre la fecha de caratulación y la fecha del informe. 
+
+-Importe y cantidad de expedientes por ubicación: las ubicaciones externas a la Secretaría de Gestión Administrativa se agrupan en la categoría "programa".
+
+-Importe por sistema de origen: ordenes de compra, financiamiento internacional y legítimo abono
+
+-Importe por proveedor
+
+**2)Tabla resumen por repartición y usuario**
+
+-Importes agrupados por repartición y usuario actual
+
+**3)Listado completo de expedientes**
+
+-Información desagregada sobre cada expediente en trámite
+
+
+Indicadores 
+=====================================
+
+Row {data-height=115, data-width=25%}
+-----------------------------------------------------------------------
+
+### Importe total `r format(Sys.Date(), "%B %d, %Y")`
+
+```{r fila11}
+library(flexdashboard)
+valueBox(paste("$",
+               round(sum(tabla.resumen$`Monto total de las facturas en $`)
+                     /1000000,0),"M",sep=""),
+         icon="fa-money",col="info")
+```
+
+### Cantidad total de Expedientes 
+```{r fila12}
+library(flexdashboard)
+valueBox(sum(tabla.resumen$`Cantidad de facturas`),
+         icon="fa-pencil",col="#E68BFB")
+```
+
+### Promedio de días que un expediente no registra movimiento 
+```{r fila13}
+library(flexdashboard)
+valueBox(round(median(as.numeric(tabla.sabana$`Días desde último pase`)),1),
+         icon="fa-calendar",col="#303F9F")
+```
+
+### Promedio de días de los expedientes desde su caratulación
+```{r fila14}
+library(flexdashboard)
+valueBox(round(median(as.numeric(tabla.sabana$`Días desde la caratulación`)),1),
+         icon="fa-calendar",col="red")
+```
+
+Row {data-width=450 data-height=400}
+-----------------------------------------------------------------------
+### 
+```{r fila21}
+library(plotly)
+library(dplyr)
+#grafico importes por ubicacion
+tabla.ubicacion<-tabla.sabana %>% 
+  mutate(monto.en.pesos = case_when( Moneda=="$  " ~ Monto,
+                                     Moneda=="U$S" ~ Monto*99,
+                                     Moneda=="€  " ~ Monto*115)) %>% 
+  group_by(`Ubicación actual`) %>% 
+  summarise(Monto.en.pesos=sum(monto.en.pesos, na.rm = T),
+            cantidad.exp=n()) %>% 
+  arrange(`Ubicación actual`)
+
+#modifico el orden del factor ubicacion
+tabla.ubicacion$`Ubicación actual`<-factor(
+  as.factor(tabla.ubicacion$`Ubicación actual`),
+  levels= c("Despacho", "CRD", "Programas", "Compras", "SGA",
+            "DAL", "DGPFI", "DGA", "Contabilidad"))
+
+fig.ubicacion <- plot_ly(tabla.ubicacion, 
+                         labels = ~`Ubicación actual`, 
+                         values = ~Monto.en.pesos, type = 'pie')
+fig.ubicacion <- fig.ubicacion %>% 
+  layout(title = 'Importe según ubicación actual',
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+fig.ubicacion
+```
+
+###
+```{r fila22}
+library(plotly)
+#grafico por sistema de origen
+tabla.gr.origen<-tabla.sabana %>% 
+  mutate(monto.en.pesos = case_when( Moneda=="$  " ~ Monto,
+                                     Moneda=="U$S" ~ Monto*99,
+                                     Moneda=="€  " ~ Monto*115)) %>% 
+  group_by(`Sist. de origen`) %>% 
+  summarise(Monto.en.pesos=sum(monto.en.pesos, na.rm = T)) %>% 
+  mutate(Porcentaje = round(100*Monto.en.pesos/sum(Monto.en.pesos),1))
+
+
+colores <- c('rgb(96, 43, 120)','rgb(211,94,96)', 'rgb(128,133,133)', 'rgb(144,103,167)', 'rgb(171,104,87)', 'rgb(114,147,203)')
+fig.origen <- plot_ly(tabla.gr.origen, 
+               labels = ~`Sist. de origen`, values = ~Monto.en.pesos, type = 'pie',
+               marker = list(colors = colores))
+fig.origen <- fig.origen %>% layout(title = 'Importe según sistema de origen',
+                                    xaxis = list(showgrid = FALSE, zeroline = FALSE,
+                                                 showticklabels = FALSE),
+                                    yaxis = list(showgrid = FALSE, zeroline = FALSE,
+                                                 showticklabels = FALSE))
+fig.origen
+
+```
+
+
+Row {data-width=900 data-height=400}
+-----------------------------------------------------------------------
+
+### 
+```{r fila3}
+library(plotly)
+library(dplyr)
+#grafico expedientes por ubicacion
+exp.ubicacion <- plot_ly(as.data.frame(tabla.ubicacion), 
+               x = ~`Ubicación actual`, y = ~cantidad.exp, 
+               type = 'bar',
+               marker = list(color = '#b52a0c',
+                             line = list(color = 'rgb(8,48,107)',
+                                         width = 1.5))) %>% 
+  layout(title = "Cantidad de expedientes por Ubicación actual",
+                      xaxis = list(title = ""),
+                      yaxis = list(title = ""))
+
+exp.ubicacion
+```
+
+Row {data-width=550 data-height=450}
+-----------------------------------------------------------------------
+
+###
+```{r fila41}
+library(dplyr)
+#armo la tabla de proveedores
+tabla.prov<-tabla.sabana %>% 
+  group_by(`Razón social`) %>% 
+  summarise(Importe =sum(Monto)) %>% 
+  arrange(-Importe) %>% 
+  mutate(pctn=round(100*Importe/sum(Importe, na.rm = T),2)) %>% 
+  mutate(Proveedores= case_when(
+    pctn>=5 ~ `Razón social`,
+    pctn<5 ~ "Otros")) %>% 
+  group_by(Proveedores) %>% 
+  summarise(`Importe en $`=sum(Importe, na.rm = T), 
+            Porcentaje=sum(pctn, na.rm = T)) %>% 
+  arrange(-Porcentaje) %>% 
+  filter(Porcentaje>0)
+
+tabla.prov.sort<-rbind(tabla.prov[-1,], tabla.prov[1,])
+
+library(DT)
+#tabla de proveedores
+datatable(tabla.prov.sort, 
+          options = list(initComplete = 
+                    JS("function(settings, json){",
+                       "$(this.api().table().header()).css({'background-color': '#303F9F', 'color': '#fff'});",
+                      "}"),
+          pageLength = 20, 
+          autoWidth = TRUE,
+          dom = 't'),
+          caption = "Proveedores con mayor importe de facturación",
+          #filter = 'top',
+          class = 'cell-border stripe',
+          callback = JS("return table;"), rownames=F,
+          escape = TRUE,
+          style = "default", width = NULL, height = NULL, elementId = NULL,
+          fillContainer = getOption("DT.fillContainer", NULL),
+          autoHideNavigation = getOption("DT.autoHideNavigation", NULL),
+          selection = c("multiple", "single", "none"), extensions = list(),
+          plugins = NULL, editable = FALSE) 
+```
+
+###
+```{r fila42}
+library(plotly)
+#grafico importe por proveedores
+imp.prov <- plot_ly(tabla.prov.sort, 
+                    labels = ~ Proveedores, values = ~`Importe en $` , type = 'pie') %>% 
+layout(title = 'Importe por proveedores',
+       legend = list(font = list(size = 7.5)),
+       xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+       yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+imp.prov
+```
+
+
+Tabla resumen por repartición y usuario actual
+===================================== 
+
+```{r}
+#8-genero la tabla resumen por reparticion
+#A)genero la tabla en dplyr
+library(DT)
+datatable(tabla.resumen, 
+          options = list(initComplete = 
+                    JS("function(settings, json){",
+                       "$(this.api().table().header()).css({'background-color': '#303F9F', 'color': '#fff'});",
+                      "}"),
+          pageLength = 200, autoWidth = TRUE),
+          caption = "La tabla permite ordenar los datos, hacer filtros para cada variable y buscar un texto particular en toda la tabla (usando el casillero 'search')",
+          filter = 'top',
+          class = 'cell-border stripe',
+          callback = JS("return table;"), rownames=F,
+          escape = TRUE,
+          style = "default", width = NULL, height = NULL, elementId = NULL,
+          fillContainer = getOption("DT.fillContainer", NULL),
+          autoHideNavigation = getOption("DT.autoHideNavigation", NULL),
+          selection = c("multiple", "single", "none"), extensions = list(),
+          plugins = NULL, editable = FALSE) %>% 
+formatStyle(
+  'Monto total de las facturas en $',
+  background = styleColorBar(tabla.resumen$`Monto total de las facturas en $`,'steelblue'),
+  backgroundSize = '100% 90%',
+  backgroundRepeat = 'no-repeat',
+  backgroundPosition = 'center'
+) %>% 
+formatStyle(
+  'Cantidad de facturas',
+  background = styleColorBar(tabla.resumen$`Cantidad de facturas`,'green'),
+  backgroundSize = '100% 90%',
+  backgroundRepeat = 'no-repeat',
+  backgroundPosition = 'center'
+)
+
+```
+
+
+Listado completo de expedientes
+=====================================   
+Row {data-width=60%}
+-----------------------------------------------------------------------
+  
+```{r echo=F}
+datatable(tabla.sabana[,3:(ncol(tabla.sabana))], 
+          options = list(initComplete = 
+                    JS("function(settings, json){",
+                       "$(this.api().table().header()).css({'background-color': '#303F9F', 'color': '#fff'});",
+                      "}"),
+            pageLength = 200, 
+            lengthMenu = c(100, 200, 500, 1000),
+                         autoWidth = TRUE),
+          caption = "La tabla permite ordenar los datos, hacer filtros para cada variable y buscar un texto particular en toda la tabla (usando el casillero 'search')",
+          filter = 'top',
+          class = 'cell-border stripe',
+          callback = JS("return table;"), 
+          rownames=F,
+          escape = TRUE,
+          style = "default", width = NULL, height = NULL, elementId = NULL,
+          fillContainer = getOption("DT.fillContainer", NULL),
+          autoHideNavigation = getOption("DT.autoHideNavigation", NULL),
+          selection = c("multiple", "single", "none"), extensions = list(),
+          plugins = NULL, editable = FALSE)
+```
+
+
