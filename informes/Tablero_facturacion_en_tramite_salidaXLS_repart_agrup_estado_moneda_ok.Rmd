@@ -8,7 +8,7 @@ output:
         favicon: logo_sga_azul40pctn.png
         logo: logoMSAL35pctn.png
 ---
-
+##prueba a ver cambio
 
 ```{r echo=F, warning=FALSE, message=FALSE}
 #1-importo las tablas
