@@ -3,8 +3,8 @@
   #VALORES DE LAS DIVISAS
   #link para cotizaciones del banco nacion
   url<-"https://www.bna.com.ar/Personas"
-  DOLAR<-122.25
-  EURO<-125.75
+  DOLAR<-124.0
+  EURO<-128.0
   
   #1-importo los archivos bajados de TABLEAU (son las 4hojas en verde del xls de Denise)
   library(pacman)
@@ -12,7 +12,7 @@
   
   #a)tramitaciones
   movimientos.exp<- read_excel("bases/Detalle_crosstab.xlsx")
-  view(movimientos.exp)
+#  view(movimientos.exp)
   
   ## construimos campos fechas como lo requiere el script
   ## me quedo con la primero de la fecha
@@ -54,7 +54,7 @@
   movimientos.exp<-movimientos.exp %>%
     filter(!`Repartición actual` %in% exclusion_dirays)
 
-  # movimientos.exp<- read_excel("2021-05-14 Facturas recibidas en trámite.xlsx", sheet = "Movimientos Exp")
+  #movimientos.exp<- read_excel("2021-06-04 Facturas recibidas en trámite.xlsx", sheet = "Movimientos Exp")
   # nrow(movimientos.exp)
   
   #b)autogestion
